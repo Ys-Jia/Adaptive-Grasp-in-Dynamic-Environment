@@ -10,7 +10,11 @@ When working in static environments, robot usually gets outperform and stable pe
 `Our current framework is`:
 <div align=center>
 <img src='https://github.com/Ys-Jia/Adaptive-Grasp-in-Dynamic-Environment/blob/main/Framework.png' width="600" height="600">
+</div> <br>
+<div align=center>
+<img src='https://github.com/Ys-Jia/Adaptive-Grasp-in-Dynamic-Environment/blob/main/ArchitectureRL.png' width="800" height="400">
 </div>
+
 We first use graspit to generate analytical grasp pose for a certain object Graw, then we use FilterGraspDataBase function to filter grasp based on our simulation physical environment to output certain numbers of filter grasps with highest success rates GDB. We randomly pick one as this time’s grasp pose. Then we record one RGB-D picture O based on CameraRecordRGBD and use it to get two objects pose Pobj which contains current pose and next Tfuture steps pose, and two obstacles point cloud Pobs. Then we use our MotionPlanner which takes Pobj, Pobs, GDB and current robot configuration q to output joint position control signal Δq, moving speed. We use ForwardCheck to update robotic arm current configuration q and do collision check. If Collision happens, we would reset the environment and record failure. Otherwise, if the distance between the end-effector position f(q) with the current object position Pobj-cur is smaller than a threshold δ, we would execute Grandom, move to the object, and close the gripper. This function finally returns the success flag for evaluation.
 
 ## Visualization(Pybullet)
